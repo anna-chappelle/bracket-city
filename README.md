@@ -29,3 +29,9 @@ No setup, no servers, just a self-contained file that runs directly in your brow
 - bracket.py - Original Python script to create and play the game in the terminal
 
 Credit to: Bracket City by The Atlantic (Ben Gross)
+
+<img width="1027" alt="Screenshot 2025-07-07 at 12 11 15 PM" src="https://github.com/user-attachments/assets/83bfa9b9-a899-476d-ada1-604aee8c74ca" />
+
+<img width="1024" alt="Screenshot 2025-07-07 at 12 16 32 PM" src="https://github.com/user-attachments/assets/d97aef97-819b-4feb-b5e9-f705e0e52ae7" />
+
+
