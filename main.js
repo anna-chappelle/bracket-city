@@ -50,6 +50,8 @@ let gameState = {
     selectedBracket: null
 };
 
+const dateStr = "August 20th, 2023";
+
 function findAllBracketsWithPositions(s) {
     const result = [];
     const stack = [];
@@ -496,6 +498,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
                 document.getElementById('currentStringDisplay').innerHTML = displayString;
                 document.getElementById('bracketsList').style.display = 'none';
                 document.getElementById('noBrackets').style.display = 'block';
+                document.getElementById('dateString').style.display = 'inline';
                 document.getElementById('finalResult').style.display = 'block';
                 document.getElementById('finalResultText').textContent = gameState.currentString;
                 
