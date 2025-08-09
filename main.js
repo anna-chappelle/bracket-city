@@ -383,6 +383,7 @@ function resetGame() {
         gameState =  initialState;
         document.getElementById("currentStringDisplay").value = initialState.currentString; 
         showPhase('game');
+        updateGameDisplay();
     }
 }
 
