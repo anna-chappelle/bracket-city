@@ -467,6 +467,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
                 document.getElementById('currentStringDisplay').innerHTML = displayString;
                 document.getElementById('bracketsList').style.display = 'none';
                 document.getElementById('noBrackets').style.display = 'block';
+                document.getElementById('dateString').style.display = 'inline';
                 document.getElementById('finalResult').style.display = 'block';
                 document.getElementById('finalResultText').textContent = gameState.currentString;
                 
@@ -521,33 +522,6 @@ function updateAvailableBrackets() {
             });
         }
     });
-    const container = document.getElementById('availableBrackets');
-    container.innerHTML = '';
-    if (gameState.availableBrackets.length === 0) {
-        if (gameState.currentString.includes('[')) {
-            document.getElementById('bracketsList').style.display = 'none';
-            document.getElementById('noBrackets').style.display = 'block';
-            document.getElementById('noBrackets').innerHTML = '<p>No more brackets with answer keys available!</p>';
-        } else {
-            document.getElementById('bracketsList').style.display = 'none';
-            document.getElementById('noBrackets').style.display = 'block';
-            document.getElementById('finalResult').style.display = 'block';
-            document.getElementById('finalResultText').textContent = gameState.currentString;
-        }
-        return;
-    }
-    gameState.availableBrackets.forEach((bracket, index) => {
-        const item = document.createElement('div');
-        item.className = 'bracket-item';
-        item.onclick = () => selectBracket(bracket, index);
-        item.innerHTML = `
-            <span class="bracket-text">${bracket.text}</span>
-            <span class="bracket-number">${index + 1}</span>
-        `;
-        container.appendChild(item);
-    });
-    document.getElementById('bracketsList').style.display = 'block';
-    document.getElementById('noBrackets').style.display = 'none';
 }
 
 function updateAnswerKeyAfterReplacement(oldBracket, newAnswer) {
