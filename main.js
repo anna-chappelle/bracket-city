@@ -1,11 +1,51 @@
 let gameState = {
-    phase: 'setup',
-    puzzleString: '',
-    brackets: [],
-    currentBracketIndex: 0,
-    answerKey: {},
-    solvedBrackets: {},
-    currentString: '',
+    phase: 'game',
+    puzzleString: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas] and [____ Jessica [place to play catch]er] make it [city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s "___ of America" features 520 stores]y)]] person)] [The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]'
+    ,
+    brackets: [
+        {end: 58, level: 1, start: 22, text: '[reactive element often paired with Cl, abbr.]'},
+        {end: 102 , level: 1, start: 81, text: '[Something a student might have to defend]'},
+        {end: 249, level: 1, start: 216, text: '[controversial Kendall Jenner ad]'},
+        {end: 256, level: 1, start: 306, text: '[Minnesota\'s "___ of America" features 520 stores]'},
+        {end: 390, level: 1, start: 351, text: '[art form where singers tell the story]'},
+        {end: 62, level: 2, start: 0, text: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas]'},
+        {end: 105, level: 2, start: 67, text: '[____ Jessica [place to play catch]er]'},
+        {end: 396, level: 2, start: 326, text: '[oil ___ (ocean drilling [art form where singers tell the story]tion)]'},
+        {end: 404, level: 3, start: 320, text: '[The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]'},
+        {end: 309, level: 4, start: 165, text: '[anti[Something a student might have to defend] of…nesota\'s "___ of America" features 520 stores]y)]'},
+        {end: 310, level: 5, start: 132, text: '[____os (candy often paired with [anti[Something a…esota\'s "___ of America" features 520 stores]y)]]'},
+        {end: 319, level: 6, start: 114, text: '[city ____ (govern[____os (candy often paired with…___ of America" features 520 stores]y)]] person)]'}
+    ],
+    currentBracketIndex: 13,
+    answerKey: {
+        '[Minnesota\'s \"___ of America\" features 520 stores]': 'mall',
+        '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas]': 'Anna',
+        '[Something a student might have to defend]': 'thesis',
+        '[The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]': ':)',
+        '[____ Jessica [place to play catch]er]': 'Sarah',
+        '[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]]': 'ment',
+        '[anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]': 'coke',
+        '[art form where singers tell the story]' : 'opera','[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
+        '[controversial Kendall Jenner ad]': 'pepsi',
+        '[oil ___ (ocean drilling [art form where singers tell the story]tion)]': 'rig',
+        '[place to play catch]' : 'park',
+        '[reactive element often paired with Cl, abbr.]': 'na'
+    },
+    solvedBrackets: {
+        '[Minnesota\'s \"___ of America\" features 520 stores]': 'mall',
+        '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas]': 'Anna',
+        '[Something a student might have to defend]': 'thesis',
+        '[The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]': ':)',
+        '[____ Jessica [place to play catch]er]': 'Sarah',
+        '[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]]': 'ment',
+        '[anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]': 'coke',
+        '[art form where singers tell the story]' : 'opera','[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
+        '[controversial Kendall Jenner ad]': 'pepsi',
+        '[oil ___ (ocean drilling [art form where singers tell the story]tion)]': 'rig',
+        '[place to play catch]' : 'park',
+        '[reactive element often paired with Cl, abbr.]': 'na'
+    },
+    currentString: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas] and [____ Jessica [place to play catch]er] make it [city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s "___ of America" features 520 stores]y)]] person)] [The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]\n',
     availableBrackets: [],
     selectedBracket: null
 };
@@ -243,33 +283,33 @@ function updateGameDisplay() {
             }
         };
     });
-    const container = document.getElementById('availableBrackets');
-    container.innerHTML = '';
-    if (gameState.availableBrackets.length === 0) {
-        if (gameState.currentString.includes('[')) {
-            document.getElementById('bracketsList').style.display = 'none';
-            document.getElementById('noBrackets').style.display = 'block';
-            document.getElementById('noBrackets').innerHTML = '<p>No more brackets with answer keys available!</p>';
-        } else {
-            document.getElementById('bracketsList').style.display = 'none';
-            document.getElementById('noBrackets').style.display = 'block';
-            document.getElementById('finalResult').style.display = 'block';
-            document.getElementById('finalResultText').textContent = gameState.currentString;
-        }
-        return;
-    }
-    gameState.availableBrackets.forEach((bracket, index) => {
-        const item = document.createElement('div');
-        item.className = 'bracket-item';
-        item.onclick = () => selectBracket(bracket, index);
-        item.innerHTML = `
-            <span class="bracket-text">${bracket.text}</span>
-            <span class="bracket-number">${index + 1}</span>
-        `;
-        container.appendChild(item);
-    });
-    document.getElementById('bracketsList').style.display = 'block';
-    document.getElementById('noBrackets').style.display = 'none';
+    // const container = document.getElementById('availableBrackets');
+    // container.innerHTML = '';
+    // if (gameState.availableBrackets.length === 0) {
+    //     if (gameState.currentString.includes('[')) {
+    //         document.getElementById('bracketsList').style.display = 'none';
+    //         document.getElementById('noBrackets').style.display = 'block';
+    //         document.getElementById('noBrackets').innerHTML = '<p>No more brackets with answer keys available!</p>';
+    //     } else {
+    //         document.getElementById('bracketsList').style.display = 'none';
+    //         document.getElementById('noBrackets').style.display = 'block';
+    //         document.getElementById('finalResult').style.display = 'block';
+    //         document.getElementById('finalResultText').textContent = gameState.currentString;
+    //     }
+    //     return;
+    // }
+    // gameState.availableBrackets.forEach((bracket, index) => {
+    //     const item = document.createElement('div');
+    //     item.className = 'bracket-item';
+    //     item.onclick = () => selectBracket(bracket, index);
+    //     item.innerHTML = `
+    //         <span class="bracket-text">${bracket.text}</span>
+    //         <span class="bracket-number">${index + 1}</span>
+    //     `;
+    //     container.appendChild(item);
+    // });
+    // document.getElementById('bracketsList').style.display = 'block';
+    // document.getElementById('noBrackets').style.display = 'none';
 }
 
 function selectBracket(bracket, index) {
@@ -397,19 +437,9 @@ function showFeedback(message, type) {
 
 function resetGame() {
     if (confirm('Are you sure you want to reset the game?')) {
-        gameState = {
-            phase: 'setup',
-            puzzleString: '',
-            brackets: [],
-            currentBracketIndex: 0,
-            answerKey: {},
-            solvedBrackets: {},
-            currentString: '',
-            availableBrackets: [],
-            selectedBracket: null
-        };
+        gameState = gameState
         document.getElementById('puzzleString').value = '';
-        showPhase('setup');
+        showPhase('game');
     }
 }
 
@@ -531,6 +561,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
     updateAvailableBrackets();
     
     updateHintsIfVisible();
+    clearTypingError();
 }
 
 function updateAvailableBrackets() {
