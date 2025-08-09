@@ -50,6 +50,8 @@ let gameState = {
     selectedBracket: null
 };
 
+const initialState = {...gameState};
+
 function findAllBracketsWithPositions(s) {
     const result = [];
     const stack = [];
@@ -226,15 +228,6 @@ function submitAnswer() {
     updateKeyCreationDisplay();
 }
 
-function skipAnswer() {
-    const currentBracket = gameState.brackets[gameState.currentBracketIndex];
-    gameState.answerKey[currentBracket.text] = '';
-    gameState.solvedBrackets[currentBracket.text] = '';
-    document.getElementById('answerInput').value = '';
-    gameState.currentBracketIndex++;
-    updateKeyCreationDisplay();
-}
-
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         submitAnswer();
@@ -378,29 +371,6 @@ function showFeedback(message, type) {
             }
         }
 
-        function updateHintsDisplay() {
-            const hintsList = document.getElementById('hintsList');
-            hintsList.innerHTML = '';
-            
-            if (gameState.availableBrackets.length === 0) {
-                if (gameState.currentString.includes('[')) {
-                    const hintItem = document.createElement('div');
-                    hintItem.textContent = 'No more brackets with answer keys available!';
-                    hintsList.appendChild(hintItem);
-                } else {
-                    const hintItem = document.createElement('div');
-                    hintItem.textContent = '🎉 Puzzle Complete! All brackets have been solved.';
-                    hintsList.appendChild(hintItem);
-                }
-            } else {
-                gameState.availableBrackets.forEach((bracket, index) => {
-                    const hintItem = document.createElement('div');
-                    hintItem.textContent = `Bracket ${index + 1}: ${bracket.text} → Answer length: ${bracket.answer.length} characters`;
-                    hintsList.appendChild(hintItem);
-                });
-            }
-        }
-
         function updateHintsIfVisible() {
             const hintSection = document.getElementById('hintSection');
             if (hintSection.style.display === 'block') {
@@ -410,11 +380,12 @@ function showFeedback(message, type) {
 
 function resetGame() {
     if (confirm('Are you sure you want to reset the game?')) {
-        gameState = gameState
-        document.getElementById('puzzleString').value = '';
+        gameState =  initialState;
+        document.getElementById("currentStringDisplay").value = initialState.currentString; 
         showPhase('game');
     }
 }
+
 
 function showError(elementId, message) {
     const errorElement = document.getElementById(elementId);
