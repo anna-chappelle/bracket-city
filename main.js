@@ -47,7 +47,8 @@ let gameState = {
     },
     currentString: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas] and [____ Jessica [place to play catch]er] make it [city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s "___ of America" features 520 stores]y)]] person)] [The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]\n',
     availableBrackets: [],
-    selectedBracket: null
+    selectedBracket: null, 
+    score: 100
 };
 
 const initialState = {...gameState};
@@ -442,6 +443,7 @@ function checkTypingAnswer(userAnswer) {
         updateGameDisplayWithHighlight(matchedAnswer);
         clearTypingError();
     } else {
+        gameState.score = gameState.score - 2;
         const errorElement = document.getElementById('typingError');
         errorElement.style.display = 'block';
     }
@@ -466,11 +468,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
                     }
                 }
                 document.getElementById('currentStringDisplay').innerHTML = displayString;
-                document.getElementById('bracketsList').style.display = 'none';
-                document.getElementById('noBrackets').style.display = 'block';
                 document.getElementById('dateString').style.display = 'inline';
-                document.getElementById('finalResult').style.display = 'block';
-                document.getElementById('finalResultText').textContent = gameState.currentString;
                 
                 updateHintsIfVisible();
                 return;
