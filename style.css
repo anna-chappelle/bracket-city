@@ -30,7 +30,6 @@ body {
 }
 
 .header h1 {
-    font-family: 'Poppins', sans-serif;
     font-size: 2.2em;
     font-weight: 300;
     margin-bottom: 8px;
@@ -44,15 +43,12 @@ body {
 .game-section {
     background: transparent;
     padding: 0;
-    margin-bottom: 40px;
-}
-
-.input-group {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .btn {
-    font-family: 'Poppins', sans-serif;
     background: #3498db;
     color: white;
     border: none;
@@ -62,8 +58,6 @@ body {
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
-    margin-right: 12px;
-    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -72,13 +66,6 @@ body {
     background: #2980b9;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-}
-
-.btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    background: #bdc3c7;
 }
 
 .btn-secondary {
@@ -100,11 +87,16 @@ body {
 }
 
 .current-string {
-    background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 24px;
-    margin: 24px 0;
+}
+
+.date-string {
+    display: none;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 14px;
 }
 
 .string-display {
@@ -120,34 +112,23 @@ body {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    margin: 24px 0;
 }
 
 .leaf-bracket {
     background: rgba(52, 152, 219, 0.15);
     border-radius: 3px;
     padding: 1px 3px;
-    margin: 0;
     display: inline;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.leaf-bracket:hover {
-    background: rgba(52, 152, 219, 0.25);
-}
-
-.leaf-bracket.selected {
-    background: rgba(52, 152, 219, 0.4);
 }
 
 .typing-bar {
-    background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 20px;
-    margin: 24px 0;
     box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .typing-input {
@@ -157,7 +138,6 @@ body {
     border-radius: 6px;
     font-size: 16px;
     font-family: monospace;
-    margin-bottom: 12px;
     background: #fafafa;
     transition: all 0.2s ease;
 }
@@ -169,25 +149,12 @@ body {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
-.typing-label {
-    font-family: 'Poppins', sans-serif;
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #34495e;
-    font-size: 0.9em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
 .typing-error {
-    font-family: 'Poppins', sans-serif;
     background: rgba(231, 76, 60, 0.1);
     color: #e74c3c;
     border: 1px solid rgba(231, 76, 60, 0.2);
     border-radius: 6px;
     padding: 12px;
-    margin-top: 12px;
     font-weight: 500;
     display: none;
     border-left: 4px solid #e74c3c;
@@ -209,6 +176,10 @@ body {
     margin: 0;
     display: inline;
     transition: all 0.2s ease;
+}
+
+.hint-section {
+    display: none;
 }
 
 @media (max-width: 768px) {
