@@ -16,51 +16,6 @@
             <p></p>
         </div>
         <div class="main-content">
-            <!-- <div id="setupPhase" class="phase">
-                <div class="setup-section">
-                    <h2 class="section-title">Enter Puzzle String</h2>
-                    <div class="input-group">
-                        <textarea
-                            id="puzzleString"
-                            rows="6"
-                            placeholder="Example: [objects actors use on stage] to you for [fruit like prune, raisin or pear]uring this one [in-n-_], [geek or _]"
-                        ></textarea>
-                    </div>
-                    <div id="setupError" class="error-message" style="display: none;"></div>
-                    <button class="btn" onclick="startKeyCreation()">Create Answer Key</button>
-                </div>
-            </div> -->
-            <!-- <div id="keyCreationPhase" class="phase">
-                <div class="key-creation-section">
-                    <h2 class="section-title">Create Answer Key</h2>
-                    <div class="progress-bar">
-                        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-                        <span id="progressText" class="progress-text">0 of 0 brackets</span>
-                    </div>
-                    <div id="bracketDisplay" class="bracket-display" style="display: none;">
-                        <h3 id="currentBracketTitle">Current Bracket (Level 0):</h3>
-                        <div id="currentBracketText" class="bracket-text"></div>
-                        <div class="bracket-info">
-                            <small id="originalBracketText">Original: </small>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="answerInput">Enter correct answer for this bracket:</label>
-                        <input
-                            id="answerInput"
-                            type="text"
-                            placeholder="Type your answer here..."
-                            onkeypress="handleKeyPress(event)"
-                        />
-                    </div>
-                    <div class="button-group">
-                        <button class="btn btn-success" onclick="submitAnswer()">Submit Answer</button>
-                    </div>
-                    <div id="bracketsPreview" class="brackets-preview" style="display: none;">
-                        <div id="bracketsList"></div>
-                    </div>
-                </div> -->
-            <!-- </div> -->
             <div id="gamePhase" class="phase active">
                 <div class="game-section">
                     <div class="current-string">
@@ -98,6 +53,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="main.js"></script>
 </body>
 </html> 

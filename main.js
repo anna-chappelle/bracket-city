@@ -1,3 +1,5 @@
+const confetti = new JSConfetti();
+
 let gameState = {
     phase: 'game',
     puzzleString: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas] and [____ Jessica [place to play catch]er] make it [city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s "___ of America" features 520 stores]y)]] person)] [The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]'
@@ -467,6 +469,9 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
                         displayString = before + `<span class="${highlightClass}">${replacedAnswer}</span>` + after;
                     }
                 }
+                confetti.addConfetti({
+                    emojis: ['🌈', '😼', '🍋', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼'],
+                });
                 document.getElementById('currentStringDisplay').innerHTML = displayString;
                 document.getElementById('dateString').style.display = 'inline';
                 
