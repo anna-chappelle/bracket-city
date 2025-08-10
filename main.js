@@ -118,64 +118,12 @@ function findMatchingAnswer(bracket, answerKey) {
     return '';
 }
 
-function collapseBracketWithAnswer(s, bracketText, answer) {
-    return s.replace(bracketText, answer, 1);
-}
-
 function validateAnswer(userAnswer, correctAnswer) {
     return userAnswer.toLowerCase().trim() === correctAnswer.toLowerCase().trim();
 }
 
-function getBracketLevel(bracket) {
-    return bracket.count('[') - 1;
-}
-
-function showPhase(phase) {
-    document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
-    document.getElementById(phase + 'Phase').classList.add('active');
-}
-
-function updateBracketsPreview() {
-    const container = document.getElementById('bracketsList');
-    container.innerHTML = '';
-    gameState.brackets.forEach((bracket, index) => {
-        const item = document.createElement('div');
-        item.className = `bracket-preview-item ${index === gameState.currentBracketIndex ? 'current' : ''} ${index < gameState.currentBracketIndex ? 'completed' : ''}`;
-        item.innerHTML = `
-            <span class="bracket-level">Level ${bracket.level}</span>
-            <span class="bracket-content">${bracket.text}</span>
-            ${index < gameState.currentBracketIndex ? 
-                `<span class="bracket-answer">→ ${gameState.answerKey[bracket.text] || '(skipped)'}</span>` : ''}
-        `;
-        container.appendChild(item);
-    });
-    document.getElementById('bracketsPreview').style.display = 'block';
-}
-
-function submitAnswer() {
-    const answer = document.getElementById('answerInput').value.trim();
-    if (!answer) {
-        alert('Please enter an answer!');
-        return;
-    }
-    const currentBracket = gameState.brackets[gameState.currentBracketIndex];
-    const answerLower = answer.toLowerCase();
-    gameState.answerKey[currentBracket.text] = answerLower;
-    gameState.solvedBrackets[currentBracket.text] = answerLower;
-    document.getElementById('answerInput').value = '';
-    gameState.currentBracketIndex++;
-    updateKeyCreationDisplay();
-}
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        submitAnswer();
-    }
-}
-
 function startGame() {
     gameState.currentString = gameState.puzzleString;
-    showPhase('game');
     updateGameDisplay();
     setTimeout(() => {
         initializeTypingBar();
@@ -205,93 +153,31 @@ function updateGameDisplay() {
         displayString = before + highlightedBracket + after;
     });
     document.getElementById('currentStringDisplay').innerHTML = displayString;
-    // document.querySelectorAll('.leaf-bracket').forEach(element => {
-    //     element.onclick = () => {
-    //         const bracketIndex = parseInt(element.dataset.bracketIndex);
-    //         const bracket = sortedLeafBrackets[bracketIndex][0];
-    //         const availableIndex = gameState.availableBrackets.findIndex(b => b.text === bracket);
-    //         if (availableIndex !== -1) {
-    //             selectBracket(gameState.availableBrackets[availableIndex], availableIndex);
-    //         }
-    //     };
-    // });
 }
 
-// function selectBracket(bracket, index) {
-//     gameState.selectedBracket = bracket;
-//     document.querySelectorAll('.bracket-item').forEach(item => {
-//         item.classList.remove('selected');
-//     });
-//     event.target.closest('.bracket-item').classList.add('selected');
-//     document.querySelectorAll('.leaf-bracket').forEach(element => {
-//         element.classList.remove('selected');
-//     });
-//     document.querySelectorAll('.leaf-bracket').forEach(element => {
-//         if (element.textContent === bracket.text) {
-//             element.classList.add('selected');
-//         }
-//     });
-//     document.getElementById('selectedBracketDisplay').textContent = bracket.text;
-//     document.getElementById('answerInputSection').style.display = 'block';
-//     document.getElementById('gameAnswerInput').focus();
-// }
+function showHints() {
+    const hintSection = document.getElementById('hintSection');
+    const hintsButton = document.querySelector('button[onclick="showHints()"]');
+    const myImage = document.getElementById("my-image");
 
-function handleGameKeyPress(event) {
-    if (event.key === 'Enter') {
-        submitGameAnswer();
-    } else if (event.key === 'Escape') {
-        cancelGameAnswer();
+    if (hintSection.style.display === 'block') {
+        hintSection.style.display = 'none';
+        hintsButton.textContent = 'Show Hints';
+    } else {
+        hintsButton.addEventListener("click", () => {
+            myImage.style.display = 'block'; 
+        })
+        hintSection.style.display = 'block';
+        hintsButton.textContent = 'Hide Hints';
     }
 }
-
-function showFeedback(message, type) {
-    const feedback = document.getElementById('feedback');
-    feedback.textContent = message;
-    feedback.className = `feedback ${type}`;
-    feedback.style.display = 'block';
-    setTimeout(() => {
-        feedback.style.display = 'none';
-    }, 3000);
-}
-
-        function showHints() {
-            const hintSection = document.getElementById('hintSection');
-            const hintsButton = document.querySelector('button[onclick="showHints()"]');
-            const myImage = document.getElementById("my-image");
-
-            if (hintSection.style.display === 'block') {
-                hintSection.style.display = 'none';
-                hintsButton.textContent = 'Show Hints';
-            } else {
-                hintsButton.addEventListener("click", () => {
-                    myImage.style.display = 'block'; 
-                })
-                hintSection.style.display = 'block';
-                hintsButton.textContent = 'Hide Hints';
-            }
-        }
-
-        function updateHintsIfVisible() {
-            const hintSection = document.getElementById('hintSection');
-            if (hintSection.style.display === 'block') {
-                updateHintsDisplay();
-            }
-        }
 
 function resetGame() {
     if (confirm('Are you sure you want to reset the game?')) {
         gameState =  initialState;
         document.getElementById("currentStringDisplay").value = initialState.currentString; 
-        showPhase('game');
         updateGameDisplay();
     }
-}
-
-
-function showError(elementId, message) {
-    const errorElement = document.getElementById(elementId);
-    errorElement.textContent = message;
-    errorElement.style.display = 'block';
 }
 
 function initializeTypingBar() {
@@ -322,8 +208,7 @@ function checkTypingAnswer(userAnswer) {
     let foundMatch = false;
     let matchedBracket = null;
     let matchedAnswer = '';
-    for (const [bracketText, start, end] of leafBrackets) {
-        const bracketContent = bracketText.substring(1, bracketText.length - 1);
+    for (const [bracketText] of leafBrackets) {
         if (gameState.answerKey[bracketText]) {
             const correctAnswer = gameState.answerKey[bracketText];
             if (validateAnswer(userAnswer, correctAnswer)) {
@@ -349,32 +234,30 @@ function checkTypingAnswer(userAnswer) {
 }
 
 function updateGameDisplayWithHighlight(replacedAnswer) {
-    const allBrackets = findAllBracketsWithPositions(gameState.currentString);
     const leafBrackets = findLeafBracketsWithPositions(gameState.currentString);
-                if (leafBrackets.length === 0) {
-                let displayString = gameState.currentString;
-                if (replacedAnswer && replacedAnswer.trim()) {
-                    const lastIndex = displayString.lastIndexOf(replacedAnswer);
-                    if (lastIndex !== -1) {
-                        const before = displayString.substring(0, lastIndex);
-                        const after = displayString.substring(lastIndex + replacedAnswer.length);
-                        const beforeChar = lastIndex > 0 ? displayString[lastIndex - 1] : ' ';
-                        const afterChar = lastIndex + replacedAnswer.length < displayString.length ? displayString[lastIndex + replacedAnswer.length] : ' ';
-                        const hasSpaceBefore = beforeChar === ' ' || beforeChar === '\n' || beforeChar === '\t';
-                        const hasSpaceAfter = afterChar === ' ' || afterChar === '\n' || afterChar === '\t';
-                        const highlightClass = (hasSpaceBefore && hasSpaceAfter) ? 'correct-answer' : 'correct-answer-compact';
-                        displayString = before + `<span class="${highlightClass}">${replacedAnswer}</span>` + after;
-                    }
-                }
-                confetti.addConfetti({
-                    emojis: ['🌈', '😼', '🍋', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼'],
-                });
-                document.getElementById('currentStringDisplay').innerHTML = displayString;
-                document.getElementById('dateString').style.display = 'inline';
-                
-                updateHintsIfVisible();
-                return;
+    if (leafBrackets.length === 0) {
+        let displayString = gameState.currentString;
+        if (replacedAnswer && replacedAnswer.trim()) {
+            const lastIndex = displayString.lastIndexOf(replacedAnswer);
+            if (lastIndex !== -1) {
+                const before = displayString.substring(0, lastIndex);
+                const after = displayString.substring(lastIndex + replacedAnswer.length);
+                const beforeChar = lastIndex > 0 ? displayString[lastIndex - 1] : ' ';
+                const afterChar = lastIndex + replacedAnswer.length < displayString.length ? displayString[lastIndex + replacedAnswer.length] : ' ';
+                const hasSpaceBefore = beforeChar === ' ' || beforeChar === '\n' || beforeChar === '\t';
+                const hasSpaceAfter = afterChar === ' ' || afterChar === '\n' || afterChar === '\t';
+                const highlightClass = (hasSpaceBefore && hasSpaceAfter) ? 'correct-answer' : 'correct-answer-compact';
+                displayString = before + `<span class="${highlightClass}">${replacedAnswer}</span>` + after;
             }
+        }
+        confetti.addConfetti({
+            emojis: ['🌈', '😼', '🍋', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼'],
+            confettiNumber: 200
+        });
+        document.getElementById('currentStringDisplay').innerHTML = displayString;
+        document.getElementById('dateString').style.display = 'inline';
+        return;
+    }
     let displayString = gameState.currentString;
     const sortedLeafBrackets = leafBrackets.sort((a, b) => b[1] - a[1]);
     sortedLeafBrackets.forEach(([bracket, start, end], index) => {
@@ -405,8 +288,6 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
         };
     });
     updateAvailableBrackets();
-    
-    updateHintsIfVisible();
     clearTypingError();
 }
 
@@ -427,7 +308,7 @@ function updateAvailableBrackets() {
 
 function updateAnswerKeyAfterReplacement(oldBracket, newAnswer) {
     const allBrackets = findAllBracketsWithPositions(gameState.currentString);
-    allBrackets.forEach(([bracketText, start, end]) => {
+    allBrackets.forEach(([bracketText]) => {
         const bracketContent = bracketText.substring(1, bracketText.length - 1);
         if (bracketContent.includes(newAnswer)) {
             for (const [pattern, answer] of Object.entries(gameState.answerKey)) {
