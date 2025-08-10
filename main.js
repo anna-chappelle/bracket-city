@@ -133,70 +133,6 @@ function showPhase(phase) {
     document.getElementById(phase + 'Phase').classList.add('active');
 }
 
-function startKeyCreation() {
-    const puzzleString = document.getElementById('puzzleString').value.trim();
-    if (!puzzleString) {
-        showError('setupError', 'Please enter a puzzle string!');
-        return;
-    }
-    gameState.puzzleString = puzzleString;
-    gameState.brackets = [];
-    gameState.currentBracketIndex = 0;
-    gameState.answerKey = {};
-    gameState.solvedBrackets = {};
-    gameState.currentString = '';
-    gameState.availableBrackets = [];
-    gameState.selectedBracket = null;
-    document.getElementById('setupError').style.display = 'none';
-    const allBrackets = findAllBracketsWithPositions(puzzleString);
-    const bracketLevels = [];
-    for (const [bracket, start, end] of allBrackets) {
-        let level = 0;
-        for (let i = 0; i < bracket.length; i++) {
-            if (bracket[i] === '[') level++;
-        }
-        bracketLevels.push({
-            text: bracket,
-            start: start,
-            end: end,
-            level: level
-        });
-    }
-    bracketLevels.sort((a, b) => a.level - b.level);
-    gameState.brackets = bracketLevels;
-    gameState.currentBracketIndex = 0;
-    showPhase('keyCreation');
-    updateKeyCreationDisplay();
-}
-
-function updateKeyCreationDisplay() {
-    if (gameState.currentBracketIndex >= gameState.brackets.length) {
-        startGame();
-        return;
-    }
-    const currentBracket = gameState.brackets[gameState.currentBracketIndex];
-    const progress = ((gameState.currentBracketIndex + 1) / gameState.brackets.length) * 100;
-    document.getElementById('progressFill').style.width = progress + '%';
-    document.getElementById('progressText').textContent = 
-        `${gameState.currentBracketIndex + 1} of ${gameState.brackets.length} brackets`;
-    let displayBracket = currentBracket.text;
-    const sortedSolved = Object.entries(gameState.solvedBrackets)
-        .sort(([a], [b]) => b.length - a.length);
-    for (const [solvedBracket, answer] of sortedSolved) {
-        if (displayBracket.includes(solvedBracket)) {
-            displayBracket = displayBracket.replace(solvedBracket, answer);
-        }
-    }
-    document.getElementById('currentBracketTitle').textContent = 
-        `Current Bracket (Level ${currentBracket.level}):`;
-    document.getElementById('currentBracketText').textContent = displayBracket;
-    document.getElementById('originalBracketText').textContent = 
-        `Original: ${currentBracket.text}`;
-    document.getElementById('bracketDisplay').style.display = 'block';
-    updateBracketsPreview();
-    document.getElementById('answerInput').focus();
-}
-
 function updateBracketsPreview() {
     const container = document.getElementById('bracketsList');
     container.innerHTML = '';
@@ -267,77 +203,36 @@ function updateGameDisplay() {
         displayString = before + highlightedBracket + after;
     });
     document.getElementById('currentStringDisplay').innerHTML = displayString;
-    document.querySelectorAll('.leaf-bracket').forEach(element => {
-        element.onclick = () => {
-            const bracketIndex = parseInt(element.dataset.bracketIndex);
-            const bracket = sortedLeafBrackets[bracketIndex][0];
-            const availableIndex = gameState.availableBrackets.findIndex(b => b.text === bracket);
-            if (availableIndex !== -1) {
-                selectBracket(gameState.availableBrackets[availableIndex], availableIndex);
-            }
-        };
-    });
+    // document.querySelectorAll('.leaf-bracket').forEach(element => {
+    //     element.onclick = () => {
+    //         const bracketIndex = parseInt(element.dataset.bracketIndex);
+    //         const bracket = sortedLeafBrackets[bracketIndex][0];
+    //         const availableIndex = gameState.availableBrackets.findIndex(b => b.text === bracket);
+    //         if (availableIndex !== -1) {
+    //             selectBracket(gameState.availableBrackets[availableIndex], availableIndex);
+    //         }
+    //     };
+    // });
 }
 
-function selectBracket(bracket, index) {
-    gameState.selectedBracket = bracket;
-    document.querySelectorAll('.bracket-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    event.target.closest('.bracket-item').classList.add('selected');
-    document.querySelectorAll('.leaf-bracket').forEach(element => {
-        element.classList.remove('selected');
-    });
-    document.querySelectorAll('.leaf-bracket').forEach(element => {
-        if (element.textContent === bracket.text) {
-            element.classList.add('selected');
-        }
-    });
-    document.getElementById('selectedBracketDisplay').textContent = bracket.text;
-    document.getElementById('answerInputSection').style.display = 'block';
-    document.getElementById('gameAnswerInput').focus();
-}
-
-function submitGameAnswer() {
-    const answer = document.getElementById('gameAnswerInput').value.trim();
-    if (!answer) {
-        alert('Please enter an answer!');
-        return;
-    }
-    const isCorrect = validateAnswer(answer, gameState.selectedBracket.answer);
-    if (isCorrect) {
-        const originalString = gameState.currentString;
-        const bracketText = gameState.selectedBracket.text;
-        const newString = originalString.replace(bracketText, answer);
-        gameState.currentString = newString;
-        updateAnswerKeyAfterReplacement(bracketText, answer);
-        showFeedback('Correct! The bracket has been replaced.', 'success');
-        updateGameDisplayWithHighlight(answer);
-    } else {
-        showFeedback('Incorrect. Try again! ✗', 'error');
-    }
-    document.getElementById('gameAnswerInput').value = '';
-    document.getElementById('answerInputSection').style.display = 'none';
-    gameState.selectedBracket = null;
-    document.querySelectorAll('.bracket-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    document.querySelectorAll('.leaf-bracket').forEach(element => {
-        element.classList.remove('selected');
-    });
-}
-
-function cancelGameAnswer() {
-    document.getElementById('gameAnswerInput').value = '';
-    document.getElementById('answerInputSection').style.display = 'none';
-    gameState.selectedBracket = null;
-    document.querySelectorAll('.bracket-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    document.querySelectorAll('.leaf-bracket').forEach(element => {
-        element.classList.remove('selected');
-    });
-}
+// function selectBracket(bracket, index) {
+//     gameState.selectedBracket = bracket;
+//     document.querySelectorAll('.bracket-item').forEach(item => {
+//         item.classList.remove('selected');
+//     });
+//     event.target.closest('.bracket-item').classList.add('selected');
+//     document.querySelectorAll('.leaf-bracket').forEach(element => {
+//         element.classList.remove('selected');
+//     });
+//     document.querySelectorAll('.leaf-bracket').forEach(element => {
+//         if (element.textContent === bracket.text) {
+//             element.classList.add('selected');
+//         }
+//     });
+//     document.getElementById('selectedBracketDisplay').textContent = bracket.text;
+//     document.getElementById('answerInputSection').style.display = 'block';
+//     document.getElementById('gameAnswerInput').focus();
+// }
 
 function handleGameKeyPress(event) {
     if (event.key === 'Enter') {
@@ -359,14 +254,16 @@ function showFeedback(message, type) {
 
         function showHints() {
             const hintSection = document.getElementById('hintSection');
-            const hintsList = document.getElementById('hintsList');
             const hintsButton = document.querySelector('button[onclick="showHints()"]');
-            
+            const myImage = document.getElementById("my-image");
+
             if (hintSection.style.display === 'block') {
                 hintSection.style.display = 'none';
                 hintsButton.textContent = 'Show Hints';
             } else {
-                updateHintsDisplay();
+                hintsButton.addEventListener("click", () => {
+                    myImage.style.display = 'block'; 
+                })
                 hintSection.style.display = 'block';
                 hintsButton.textContent = 'Hide Hints';
             }

@@ -16,51 +16,6 @@
             <p></p>
         </div>
         <div class="main-content">
-            <!-- <div id="setupPhase" class="phase">
-                <div class="setup-section">
-                    <h2 class="section-title">Enter Puzzle String</h2>
-                    <div class="input-group">
-                        <textarea
-                            id="puzzleString"
-                            rows="6"
-                            placeholder="Example: [objects actors use on stage] to you for [fruit like prune, raisin or pear]uring this one [in-n-_], [geek or _]"
-                        ></textarea>
-                    </div>
-                    <div id="setupError" class="error-message" style="display: none;"></div>
-                    <button class="btn" onclick="startKeyCreation()">Create Answer Key</button>
-                </div>
-            </div> -->
-            <!-- <div id="keyCreationPhase" class="phase">
-                <div class="key-creation-section">
-                    <h2 class="section-title">Create Answer Key</h2>
-                    <div class="progress-bar">
-                        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
-                        <span id="progressText" class="progress-text">0 of 0 brackets</span>
-                    </div>
-                    <div id="bracketDisplay" class="bracket-display" style="display: none;">
-                        <h3 id="currentBracketTitle">Current Bracket (Level 0):</h3>
-                        <div id="currentBracketText" class="bracket-text"></div>
-                        <div class="bracket-info">
-                            <small id="originalBracketText">Original: </small>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="answerInput">Enter correct answer for this bracket:</label>
-                        <input
-                            id="answerInput"
-                            type="text"
-                            placeholder="Type your answer here..."
-                            onkeypress="handleKeyPress(event)"
-                        />
-                    </div>
-                    <div class="button-group">
-                        <button class="btn btn-success" onclick="submitAnswer()">Submit Answer</button>
-                    </div>
-                    <div id="bracketsPreview" class="brackets-preview" style="display: none;">
-                        <div id="bracketsList"></div>
-                    </div>
-                </div> -->
-            <!-- </div> -->
             <div id="gamePhase" class="phase active">
                 <div class="game-section">
                     <div class="current-string">
@@ -71,7 +26,7 @@
                         <input type="text" id="typingInput" class="typing-input" placeholder="type any word to solve a bracket..." />
                         <div id="typingError" class="typing-error">Incorrect answer. Try again!</div>
                     </div>
-                    <div id="answerInputSection" class="answer-input" style="display: none;">
+                    <!-- <div id="answerInputSection" class="answer-input" style="display: none;">
                         <h3>Enter Answer for Selected Bracket</h3>
                         <div id="selectedBracketDisplay" class="selected-bracket"></div>
                         <input
@@ -84,7 +39,7 @@
                             <button class="btn btn-success" onclick="submitGameAnswer()">Submit</button>
                             <button class="btn btn-secondary" onclick="cancelGameAnswer()">Cancel</button>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="button-group">
                         <button class="btn btn-secondary" onclick="showHints()">Show Hints</button>
                         <button class="btn btn-danger" onclick="resetGame()">Reset Game</button>
@@ -92,6 +47,7 @@
                     <div id="feedback" class="feedback" style="display: none;"></div>
                     <div id="hintSection" style="display: none;">
                         <h4>💡 Hints</h4>
+                        <img id="my-image" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdiMHRkOWN4ZjhqaTIwd2xreTBwcnFwZWc4aG0xd2ZmdjJ0azJqNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q49YSnLzrvghiyKBAR/giphy.gif"
                         <div id="hintsList"></div>
                     </div>
                 </div>
