@@ -1,3 +1,4 @@
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -48,44 +49,7 @@ body {
     gap: 12px;
 }
 
-.btn {
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.btn:hover {
-    background: #2980b9;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-}
-
-.btn-secondary {
-    background: #95a5a6;
-}
-
-.btn-secondary:hover {
-    background: #7f8c8d;
-    box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
-}
-
-.btn-danger {
-    background: #e74c3c;
-}
-
-.btn-danger:hover {
-    background: #c0392b;
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
-}
-
+/* Puzzle String Section Styles */
 .current-string {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -108,12 +72,6 @@ body {
     display: inline;
 }
 
-.button-group {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
 .leaf-bracket {
     background: rgba(52, 152, 219, 0.15);
     border-radius: 3px;
@@ -121,6 +79,25 @@ body {
     display: inline;
 }
 
+.correct-answer {
+    background: rgba(39, 174, 96, 0.2);
+    border-radius: 2px;
+    padding: 1px 2px;
+    margin: 0;
+    display: inline;
+    transition: all 0.2s ease;
+}
+
+.correct-answer-compact {
+    background: rgba(39, 174, 96, 0.2);
+    border-radius: 1px;
+    padding: 0px 1px;
+    margin: 0;
+    display: inline;
+    transition: all 0.2s ease;
+}
+
+/* Input Section Styles */
 .typing-bar {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -160,31 +137,59 @@ body {
     border-left: 4px solid #e74c3c;
 }
 
-.correct-answer {
-    background: rgba(39, 174, 96, 0.2);
-    border-radius: 2px;
-    padding: 1px 2px;
-    margin: 0;
-    display: inline;
-    transition: all 0.2s ease;
+/* Button Section Styles */
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.correct-answer-compact {
-    background: rgba(39, 174, 96, 0.2);
-    border-radius: 1px;
-    padding: 0px 1px;
-    margin: 0;
-    display: inline;
+.btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
     transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+.btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+    box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Hint Section Styles */
 .hint-section {
     display: none;
 }
 
+/* Small Screen Styles */
 @media (max-width: 768px) {
     .container {
-        margin: 10px;
         border-radius: 10px;
     }
     
@@ -206,6 +211,5 @@ body {
     
     .btn {
         width: 100%;
-        margin-right: 0;
     }
 } 
