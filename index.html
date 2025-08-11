@@ -26,14 +26,18 @@
                         <input type="text" id="typingInput" class="typing-input" placeholder="type any word to solve a bracket..." />
                         <div id="typingError" class="typing-error">Incorrect answer. Try again!</div>
                     </div>
+                    <div class="score-box">
+                        <span id="scoreLabel" class="score-label" style="display: none;">Score:</span>
+                        <div id="gameScore" class="score-display"></div>
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
                     <div class="button-group">
                         <button class="btn btn-secondary" onclick="showHints()">Show Hints</button>
                         <button class="btn btn-danger" onclick="resetGame()">Reset Game</button>
                     </div>
                     <div id="hintSection" class="hint-section">
                         <h4>💡 Hints</h4>
-                        <img id="my-image" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdiMHRkOWN4ZjhqaTIwd2xreTBwcnFwZWc4aG0xd2ZmdjJ0azJqNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q49YSnLzrvghiyKBAR/giphy.gif" />
-                        <div id="hintsList"></div>
+                        <img id="my-image" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdiMHRkOWN4ZjhqaTIwd2xreTBwcnFwZWc4aG0xd2ZmdjJ0azJqNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/q49YSnLzrvghiyKBAR/giphy.gif">
                     </div>
                 </div>
             </div>

@@ -256,6 +256,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
         });
         document.getElementById('currentStringDisplay').innerHTML = displayString;
         document.getElementById('dateString').style.display = 'inline';
+        showScore();
         return;
     }
     let displayString = gameState.currentString;
@@ -290,6 +291,21 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
     updateAvailableBrackets();
     clearTypingError();
 }
+
+function showScore() {
+    const segmentEmoji = '🙂';
+    const segments = 10;
+    const filledSegments = Math.round((gameState.score / 100) * segments);
+    const emptySegments = segments - filledSegments;
+
+    document.getElementById('scoreLabel').style.display = 'block';
+    document.getElementById('scoreLabel').style.display = 'inline';
+    document.getElementById('gameScore').innerHTML = gameState.score;
+    
+    const progressBar = segmentEmoji.repeat(filledSegments) + '  '.repeat(emptySegments);
+    document.getElementById('progressBar').innerHTML = progressBar;
+}
+
 
 function updateAvailableBrackets() {
     const leafBrackets = findLeafBracketsWithPositions(gameState.currentString);
