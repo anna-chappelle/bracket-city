@@ -137,6 +137,11 @@ body {
     border-left: 4px solid #e74c3c;
 }
 
+/* Score Section Styles */
+.score-display {
+    display: inline;
+}
+
 /* Button Section Styles */
 .button-group {
     display: flex;
