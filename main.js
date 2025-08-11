@@ -175,7 +175,8 @@ function showHints() {
 function resetGame() {
     if (confirm('Are you sure you want to reset the game?')) {
         gameState =  initialState;
-        document.getElementById("currentStringDisplay").value = initialState.currentString; 
+        document.getElementById("currentStringDisplay").value = initialState.currentString;
+        document.getElementById('dateString').style.display = 'none';
         updateGameDisplay();
     }
 }
