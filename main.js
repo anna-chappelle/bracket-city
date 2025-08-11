@@ -177,6 +177,7 @@ function resetGame() {
         gameState =  initialState;
         document.getElementById("currentStringDisplay").value = initialState.currentString;
         document.getElementById('dateString').style.display = 'none';
+        document.getElementById("scoreLabel").style.display = 'none';
         updateGameDisplay();
     }
 }
@@ -257,6 +258,11 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
         });
         document.getElementById('currentStringDisplay').innerHTML = displayString;
         document.getElementById('dateString').style.display = 'inline';
+
+        //remove typing input box
+        document.querySelectorAll('.typing-bar').forEach(item => {
+            item.style.display = 'none';
+        });
         showScore();
         return;
     }

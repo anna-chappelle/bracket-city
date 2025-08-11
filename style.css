@@ -138,8 +138,17 @@ body {
 }
 
 /* Score Section Styles */
+.score-box{
+    border-radius: 8px;
+    padding: 24px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .score-display {
     display: inline;
+    font-weight: bold;
 }
 
 /* Button Section Styles */
