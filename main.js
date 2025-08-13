@@ -177,7 +177,15 @@ function resetGame() {
         gameState =  initialState;
         document.getElementById("currentStringDisplay").value = initialState.currentString;
         document.getElementById('dateString').style.display = 'none';
-        document.getElementById("scoreLabel").style.display = 'none';
+
+        document.querySelectorAll('.score-box').forEach(item => {
+            item.style.display = 'none'
+        });
+        
+        document.querySelectorAll('.typing-bar').forEach(item => {
+            item.style.display = 'flex'
+        });
+        
         updateGameDisplay();
     }
 }
