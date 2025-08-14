@@ -151,6 +151,10 @@ body {
     font-weight: bold;
 }
 
+.final-answers {
+    display: none;
+}
+
 /* Button Section Styles */
 .button-group {
     display: flex;

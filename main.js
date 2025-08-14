@@ -27,10 +27,11 @@ let gameState = {
         '[____ Jessica [place to play catch]er]': 'Sarah',
         '[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]]': 'ment',
         '[anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]': 'coke',
-        '[art form where singers tell the story]' : 'opera','[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
+        '[art form where singers tell the story]' : 'opera',
+        '[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
         '[controversial Kendall Jenner ad]': 'pepsi',
         '[oil ___ (ocean drilling [art form where singers tell the story]tion)]': 'rig',
-        '[place to play catch]' : 'park',
+        '[place to play catch]' : 'Park',
         '[reactive element often paired with Cl, abbr.]': 'na'
     },
     solvedBrackets: {
@@ -41,10 +42,11 @@ let gameState = {
         '[____ Jessica [place to play catch]er]': 'Sarah',
         '[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]]': 'ment',
         '[anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]': 'coke',
-        '[art form where singers tell the story]' : 'opera','[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
+        '[art form where singers tell the story]' : 'opera',
+        '[city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s \"___ of America\" features 520 stores]y)]] person)]': 'official',
         '[controversial Kendall Jenner ad]': 'pepsi',
         '[oil ___ (ocean drilling [art form where singers tell the story]tion)]': 'rig',
-        '[place to play catch]' : 'park',
+        '[place to play catch]' : 'Park',
         '[reactive element often paired with Cl, abbr.]': 'na'
     },
     currentString: '[Sav____h Ba[reactive element often paired with Cl, abbr.]nas] and [____ Jessica [place to play catch]er] make it [city ____ (govern[____os (candy often paired with [anti[Something a student might have to defend] of [controversial Kendall Jenner ad] (infor[Minnesota\'s "___ of America" features 520 stores]y)]] person)] [The o[oil ___ (ocean drilling [art form where singers tell the story]tion)]inal 🙂]\n',
@@ -54,6 +56,21 @@ let gameState = {
 };
 
 const initialState = {...gameState};
+const finalAnswers = {
+    '[Minnesota\'s \"___ of America\" features 520 stores]': 'mall',
+    '[Sav____h Bananas]': 'Anna',
+    '[Something a student might have to defend]': 'thesis',
+    '[The original 🙂]': ':)',
+    '[____ Jessica Parker]': 'Sarah',
+    '[____os (candy often paired with coke)]': 'ment',
+    '[antithesis of pepsi (informally)]': 'coke',
+    '[art form where singers tell the story]' : 'opera',
+    '[city ____ (government person)]': 'official',
+    '[controversial Kendall Jenner ad]': 'pepsi',
+    '[oil ___ (ocean drilling operation)]': 'rig',
+    '[place to play catch]' : 'park',
+    '[reactive element often paired with Cl, abbr.]': 'na'
+}
 
 function findAllBracketsWithPositions(s) {
     const result = [];
@@ -309,6 +326,11 @@ function showScore() {
     
     const progressBar = segmentEmoji.repeat(filledSegments) + '⚪'.repeat(emptySegments);
     document.getElementById('progressBar').innerHTML = progressBar;
+}
+
+function showFinalAnswers() {
+    document.getElementById('showFinalAnswers').style.display = 'block';
+    document.getElementById('showFinalAnswers').innerHTML = '';
 }
 
 function updateAvailableBrackets() {
