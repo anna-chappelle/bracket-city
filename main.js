@@ -195,6 +195,7 @@ function resetGame() {
         document.getElementById("currentStringDisplay").value = gameState.currentString;
         document.getElementById('dateString').style.display = 'none';
         document.getElementById('confettiBtn').style.display = 'none';
+        document.getElementById('body').style.backgroundColor = 'rgba(250,250,250,1)';
 
         document.querySelectorAll('.score-box').forEach(item => {
             item.style.display = 'none'
@@ -289,6 +290,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
         document.getElementById('currentStringDisplay').innerHTML = displayString;
         document.getElementById('dateString').style.display = 'inline';
         document.getElementById('confettiBtn').style.display = 'block';
+        document.getElementById('body').style.backgroundColor = 'rgba(250,250,250,0)';
 
         //remove typing input box
         document.querySelectorAll('.typing-bar').forEach(item => {
