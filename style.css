@@ -24,15 +24,15 @@ body {
 }
 
 .header {
-    background: #2c3e50;
-    color: white;
+    background: #77BEF0;
+    color: #161a4c;
     padding: 40px 30px;
     text-align: center;
 }
 
 .header h1 {
     font-size: 2.2em;
-    font-weight: 300;
+    font-weight: bold;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
 }
@@ -54,6 +54,7 @@ body {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 24px;
+    color: #161a4c;
 }
 
 .date-string {
@@ -68,12 +69,11 @@ body {
     font-size: 16px;
     line-height: 1.8;
     word-wrap: break-word;
-    color: #2c3e50;
     display: inline;
 }
 
 .leaf-bracket {
-    background: rgba(52, 152, 219, 0.15);
+    background: rgba(255, 203, 97, 0.20);
     border-radius: 3px;
     padding: 1px 3px;
     display: inline;
@@ -176,22 +176,31 @@ body {
 }
 
 .btn:hover {
-    background: #2980b9;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
+.btn-primary {
+    display: none;
+    background: #161a4c;
+}
+
+.btn-primary:hover {
+    background: #161a4c;
+    opacity: 0.9;
+}
+
 .btn-secondary {
-    background: #95a5a6;
+    background: #FF894F;
 }
 
 .btn-secondary:hover {
-    background: #7f8c8d;
+    opacity: 0.9;
     box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
 }
 
 .btn-danger {
-    background: #e74c3c;
+    background: #EA5B6F;
 }
 
 .btn-danger:hover {

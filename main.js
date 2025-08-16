@@ -55,7 +55,7 @@ let gameState = {
     score: 100
 };
 
-const initialState = {...gameState};
+const initialState = structuredClone(gameState);
 const finalAnswers = {
     '[Minnesota\'s \"___ of America\" features 520 stores]': 'mall',
     '[Sav____h Bananas]': 'Anna',
@@ -191,9 +191,10 @@ function showHints() {
 
 function resetGame() {
     if (confirm('Are you sure you want to reset the game?')) {
-        gameState =  initialState;
-        document.getElementById("currentStringDisplay").value = initialState.currentString;
+        gameState = structuredClone(initialState);
+        document.getElementById("currentStringDisplay").value = gameState.currentString;
         document.getElementById('dateString').style.display = 'none';
+        document.getElementById('confettiBtn').style.display = 'none';
 
         document.querySelectorAll('.score-box').forEach(item => {
             item.style.display = 'none'
@@ -260,6 +261,13 @@ function checkTypingAnswer(userAnswer) {
     }
 }
 
+function throwConfetti() {
+    confetti.addConfetti({
+        emojis: ['🌈', '😼', '🍋', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼'],
+        confettiNumber: 200
+    });
+}
+
 function updateGameDisplayWithHighlight(replacedAnswer) {
     const leafBrackets = findLeafBracketsWithPositions(gameState.currentString);
     if (leafBrackets.length === 0) {
@@ -277,12 +285,10 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
                 displayString = before + `<span class="${highlightClass}">${replacedAnswer}</span>` + after;
             }
         }
-        confetti.addConfetti({
-            emojis: ['🌈', '😼', '🍋', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼', '👩🏻‍❤️‍💋‍👩🏼'],
-            confettiNumber: 200
-        });
+        throwConfetti();
         document.getElementById('currentStringDisplay').innerHTML = displayString;
         document.getElementById('dateString').style.display = 'inline';
+        document.getElementById('confettiBtn').style.display = 'block';
 
         //remove typing input box
         document.querySelectorAll('.typing-bar').forEach(item => {
