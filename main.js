@@ -320,17 +320,11 @@ function showScore() {
     const filledSegments = Math.round((gameState.score / 100) * segments);
     const emptySegments = segments - filledSegments;
 
-    document.getElementById('scoreLabel').style.display = 'block';
-    document.getElementById('scoreLabel').style.display = 'inline';
+    document.getElementById('scoreBox').style.display = 'block';
     document.getElementById('gameScore').innerHTML = gameState.score;
     
     const progressBar = segmentEmoji.repeat(filledSegments) + '⚪'.repeat(emptySegments);
     document.getElementById('progressBar').innerHTML = progressBar;
-}
-
-function showFinalAnswers() {
-    document.getElementById('showFinalAnswers').style.display = 'block';
-    document.getElementById('showFinalAnswers').innerHTML = '';
 }
 
 function updateAvailableBrackets() {
