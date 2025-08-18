@@ -160,6 +160,26 @@ body {
     font-weight: bold;
 }
 
+/* final answer box*/
+.brackets-preview {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.bracket-list-item {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
 /* Button Section Styles */
 .button-group {
     display: flex;
@@ -212,6 +232,16 @@ body {
 .btn-danger:hover {
     background: #c0392b;
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-answer {
+    display: none;
+    background: #689B8A;
+}
+
+.btn-answer:hover {
+    background: #689B8A;
+    opacity: 0.9;
 }
 
 /* Hint Section Styles */

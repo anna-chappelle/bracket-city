@@ -195,11 +195,14 @@ function resetGame() {
         document.getElementById("currentStringDisplay").value = gameState.currentString;
         document.getElementById('dateString').style.display = 'none';
         document.getElementById('confettiBtn').style.display = 'none';
+        document.getElementById('answersBtn').style.display = 'none';
         document.getElementById('body').style.backgroundColor = 'rgba(250,250,250,1)';
 
         document.querySelectorAll('.score-box').forEach(item => {
             item.style.display = 'none'
         });
+
+        document.getElementById('bracketsPreview').style.display = 'none';
         
         document.querySelectorAll('.typing-bar').forEach(item => {
             item.style.display = 'flex'
@@ -290,6 +293,7 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
         document.getElementById('currentStringDisplay').innerHTML = displayString;
         document.getElementById('dateString').style.display = 'inline';
         document.getElementById('confettiBtn').style.display = 'block';
+        document.getElementById('answersBtn').style.display = 'block';
         document.getElementById('body').style.backgroundColor = 'rgba(250,250,250,0)';
 
         //remove typing input box
@@ -321,6 +325,31 @@ function updateGameDisplayWithHighlight(replacedAnswer) {
     updateAvailableBrackets();
     clearTypingError();
 }
+
+function showFinalAnswers() {
+    const answerSection = document.getElementById('bracketsPreview');
+    const answersButton = document.querySelector('button[onclick="showFinalAnswers()"]');
+    const container = document.getElementById('bracketsList');
+
+    if(answerSection.style.display === 'block') {
+        answerSection.style.display = 'none';
+        answersButton.textContent = 'Show Puzzle Answers'
+    } else {
+        container.innerHTML = '';
+        for (const [key, value] of Object.entries(finalAnswers)) {
+        const item = document.createElement('div');
+        item.className = `bracket-list-item`;
+        item.innerHTML = `
+            <span class="bracket-clue">${key}</span>
+            <span class="bracket-answer"> = ${value}</span>
+        `;
+        container.appendChild(item);
+        };
+        answerSection.style.display = 'block';
+        answersButton.textContent = 'Hide Puzzle Answers'
+    }
+}
+
 
 function showScore() {
     const segmentEmoji = '🙂';
